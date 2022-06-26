@@ -1,6 +1,6 @@
 # Graphql
 
-Fazendo requisicões utilizando graphql.
+## Fazendo requisicões utilizando graphql.
 
 Primeiro passo irei instalar a seguinte lib:
 
@@ -60,4 +60,55 @@ export function App() {
     </ul>
   );
 }
+```
+
+### Query utilizando filter.
+
+```tsx
+// Esse String precisa obrigatoriamente ser camelcase
+const GET_LESSON_BY_SLUG = gql`
+  query GetLessonBySlug($slug: String) {
+    lesson(where: { slug: $slug }) {
+      title
+      videoId
+      description
+      teacher {
+        bio
+        avatarURL
+        name
+      }
+    }
+  }
+`;
+
+const { data } = useQuery(GET_LESSON_BY_SLUG, {
+    variables: {
+    slug: lessonSlug,
+  },
+});
+```
+
+## Utilizando lib pra rendereizacão de video.
+
+Ireimos instalar a seguinte libe:
+
+```bash
+# https://vimejs.com/
+❯ yarn add @vime/core @vime/react
+```
+
+Em seguida no meu componente onde utilizo o video, irei fazer as seguintes importacões e utilizar os seguintes componentes do vimeo.
+
+```tsx
+
+import { DefaultUi, Player, Youtube } from '@vime/react';
+import '@vime/core/themes/default.css';
+
+return (
+  <Player>
+    <Youtube videoId="KJj70dBgRPo" />
+    <DefaultUi />
+  </Player>
+)
+
 ```
